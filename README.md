@@ -1,44 +1,44 @@
 # AI-Powered Financial Fraud Detection API
 
-## 📌 Overview
+## Overview
 
 The **AI-Powered Financial Fraud Detection API** is a real-time fraud detection system designed to identify fraudulent transactions using machine learning. This project leverages **SQL, Python, XGBoost, and Google BigQuery** to process transactions, detect fraud patterns, and provide actionable insights for businesses in **finance, banking, and e-commerce**.
 
-🚀 **Live API Endpoint:** [https://fraud-detection-api-ybnj.onrender.com](https://fraud-detection-api-ybnj.onrender.com)
+**Live API Endpoint:** [https://fraud-detection-api-ybnj.onrender.com](https://fraud-detection-api-ybnj.onrender.com)
 
 ---
 
-## 🎯 **Project Goals**
-- ✅ Detect fraudulent transactions using AI models.
-- ✅ Provide real-time fraud risk scores for each transaction.
-- ✅ Make fraud detection scalable & marketable for businesses.
+## **Project Goals**
+- Detect fraudulent transactions using AI models.
+- Provide real-time fraud risk scores for each transaction.
+- Make fraud detection scalable & marketable for businesses.
 
 ---
 
-## 📂 **Dataset Used**
-- **Dataset:** Credit Card Fraud Detection Dataset (**284,807 transactions**)
+## **Dataset Used**
+- **Dataset:** [Credit Card Fraud Detection Dataset (**284,807 transactions**)](https://www.kaggle.com/datasets/orogunadebola/credit-card-transaction-dataset-fraud-detection)
 - **Final Processed Shape:** `(8,580,255, 26)`
 - **Stored in:** Google BigQuery (Processed in Chunked Parquet Format)
 
 ---
 
-## 🛠️ **Tools & Technologies**
-✔ **SQL (Google BigQuery):** Data storage & feature engineering  
-✔ **Python:** Machine learning (XGBoost), data analysis (Pandas, NumPy)  
-✔ **Google BigQuery:** Feature engineering on large datasets  
-✔ **FastAPI + Render:** API Deployment  
+## **Tools & Technologies**
+**SQL (Google BigQuery):** Data storage & feature engineering  
+**Python:** Machine learning (XGBoost), data analysis (Pandas, NumPy, Matplotlib, Seaborn)  
+**Google BigQuery:** Feature engineering on large datasets  
+**FastAPI + Render:** API Deployment  
 
 ---
 
-## 📊 **Exploratory Data Analysis (EDA)**
+## **Exploratory Data Analysis (EDA)**
 Performed detailed EDA on:
-- 🔹 **Fraud vs. Non-Fraud Distribution**
-- 🔹 **Transaction Amount Distribution**
-- 🔹 **Fraud Rate per Transaction Category**
-- 🔹 **Customer Behavior Analysis**
-- 🔹 **Merchant Behavior Analysis**
+- **Fraud vs. Non-Fraud Distribution**
+- **Transaction Amount Distribution**
+- **Fraud Rate per Transaction Category**
+- **Customer Behavior Analysis**
+- **Merchant Behavior Analysis**
 
-### 🔍 **Cleaned Data Columns:**
+### **Cleaned Data Columns:**
 ```
 ['trans_num', 'trans_date', 'trans_time', 'unix_time', 'category', 'amt',
  'is_fraud', 'merchant', 'merch_lat', 'merch_long',
@@ -53,7 +53,7 @@ Performed detailed EDA on:
 
 ---
 
-## 🚀 **Feature Engineering**
+## **Feature Engineering**
 **Enhanced Features using Google BigQuery:**
 ```sql
 CREATE OR REPLACE TABLE fraud_detection_project.transactions_enhanced AS
@@ -64,19 +64,19 @@ SELECT *,
     CASE WHEN COUNT(CASE WHEN is_fraud = 1 THEN 1 END) OVER (PARTITION BY merchant) / COUNT(*) OVER (PARTITION BY merchant) > 0.1 THEN 1 ELSE 0 END AS merchant_high_risk_flag
 FROM fraud_detection_project.transactions;
 ```
-✅ **Loaded Processed Data from BigQuery into Pandas**  
-✅ **Performed SMOTE to Balance Dataset**  
-✅ **Applied Feature Scaling & Normalization**  
+**Loaded Processed Data from BigQuery into Pandas**  
+**Performed SMOTE to Balance Dataset**  
+**Applied Feature Scaling & Normalization**  
 
 ---
 
-## 📈 **Model Training & Performance**
+## **Model Training & Performance**
 
-### 🚀 **Initial XGBoost Model:**
+### **Initial XGBoost Model:**
 - **Accuracy:** `1.0` (Overfitting detected, so improvements were made)
 - **AUC-ROC Score:** `1.0`
 
-### ✅ **Improved Model (XGBoost with Hyperparameter Tuning):**
+### **Improved Model (XGBoost with Hyperparameter Tuning):**
 ```python
 model = xgb.XGBClassifier(
     n_estimators=300,
@@ -100,13 +100,13 @@ model = xgb.XGBClassifier(
 
 ---
 
-## 🚀 **API Deployment (FastAPI + Render)**
-### ✅ **API Features:**
+## **API Deployment (FastAPI + Render)**
+### **API Features:**
 - **POST** `/predict` → Returns fraud probability for a given transaction.
 - **GET** `/docs` → FastAPI Swagger UI for testing.
 
-### 📌 **How to Use the API**
-#### 🔹 **Python Example:**
+### **How to Use the API**
+#### **Python Example:**
 ```python
 import requests
 
@@ -147,24 +147,22 @@ print(response.json())  # {'fraud_probability': 0.82}
 
 ---
 
-## 🔮 **Future Improvements & Business Potential**
-✅ **Sell the system as a fraud detection service to fintech companies**  
-✅ **Add real-time fraud alerts**  
-✅ **Deploy a full SaaS dashboard with Power BI**  
-✅ **Implement a fraud reporting automation pipeline using Apache Airflow** *(planned for future use)*  
+## **Future Improvements & Business Potential**
+**Sell the system as a fraud detection service to fintech companies**  
+**Add real-time fraud alerts**  
+**Deploy a full SaaS dashboard with Power BI**  
+**Implement a fraud reporting automation pipeline using Apache Airflow** *(planned for future use)*  
 
 ---
 
-## 📝 **License & Credits**
-- 📌 **Dataset:** Credit Card Fraud Detection Dataset
-- 📌 **License:** MIT License (or specify another if needed)
-- 📌 **Author:** [Balla Diaite](https://github.com/Balla6)
-
+## **License & Credits**
+- **Dataset:** [Credit Card Fraud Detection Dataset](https://www.kaggle.com/datasets/orogunadebola/credit-card-transaction-dataset-fraud-detection)
+- **Author:** [Balla Diaite](https://github.com/Balla6)
 ---
 
-### 🚀 **Final Notes**
-🎉 **This project is now fully live and production-ready!**
+### **Final Notes**
+**This project is now fully live and production-ready!**
 
-💡 If you’d like to contribute, **fork the repo and submit a PR!** 🔥
+If you’d like to contribute, **fork the repo and submit a PR!**
 
 
